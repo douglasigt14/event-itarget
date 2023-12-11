@@ -31,7 +31,7 @@ const Main: FC<MainProps> = () => {
             item.status = <Button variant="outlined" color="primary">Inscreva-se</Button>;
           }
           else{
-            item.status = <Button variant="outlined" color="error">Inscrições Encerradas</Button>;
+            item.status = <Button variant="outlined" color="error">Encerradas</Button>;
           }
         });
         setEvents(temp_events);
@@ -45,8 +45,7 @@ const Main: FC<MainProps> = () => {
 
   return (
     <div>
-      <Title>Eventos</Title>
-      <Typography variant="h1">Hello, Next.js!</Typography>
+      <Typography variant="h5">Eventos</Typography>
       <Card className="mt-6">
         <DataTable data={events}></DataTable>
       </Card>

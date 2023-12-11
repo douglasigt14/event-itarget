@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
 
-export const TextTable = styled.Text`
-        color: red;
+export const TextTable = styled.div`
+        text-align: center;
 `;

@@ -24,7 +24,7 @@ export default function DataTable({ data }: { data: any[] }) {
       <TableHead>
         <TableRow>
           {headers.map((header) => (
-            <TableHeaderCell key={header}>{header}</TableHeaderCell>
+            <TableHeaderCell key={header}><TextTable>{header}</TextTable></TableHeaderCell>
           ))}
         </TableRow>
       </TableHead>
