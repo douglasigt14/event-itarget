@@ -5,6 +5,7 @@ import React, { FC, useState, useEffect } from 'react';
 import DataTable from '../Table/table';
 import Event from '../../interfaces/Event';
 import { Button, Typography } from '@mui/material';
+import {DivCenter} from "./style";
 
 
 interface MainProps {}

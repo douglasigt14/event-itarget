@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
 
-export const TextTable = styled.div`
+export const DivCenter = styled.div`
         text-align: center;
 `;

@@ -7,9 +7,9 @@ import {
   TableCell,
   Text
 } from '@tremor/react';
-import * as Styles from "./style";
 
-const TextTable = Styles.TextTable;
+
+
 export default function DataTable({ data }: { data: any[] }) {
   // Verifica se há dados para exibição
   if (data.length === 0) {
@@ -24,7 +24,7 @@ export default function DataTable({ data }: { data: any[] }) {
       <TableHead>
         <TableRow>
           {headers.map((header) => (
-            <TableHeaderCell key={header}><TextTable>{header}</TextTable></TableHeaderCell>
+            <TableHeaderCell key={header}>{header}</TableHeaderCell>
           ))}
         </TableRow>
       </TableHead>
@@ -33,7 +33,7 @@ export default function DataTable({ data }: { data: any[] }) {
           <TableRow key={rowIndex}>
             {headers.map((header) => (
               <TableCell key={header}>
-                <TextTable>{rowData[header]}</TextTable>
+                <Text>{rowData[header]}</Text>
               </TableCell>
             ))}
           </TableRow>
