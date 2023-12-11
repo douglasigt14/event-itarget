@@ -4,6 +4,7 @@ import { Title, Card } from '@tremor/react';
 import React, { FC, useState, useEffect } from 'react';
 import DataTable from '../Table/table';
 import Event from '../../interfaces/Event';
+import { Button, Typography } from '@mui/material';
 
 
 interface MainProps {}
@@ -14,16 +15,26 @@ const Main: FC<MainProps> = () => {
 
 
   useEffect(() => {
+    const url = "http://localhost:8080/api/events";
     const fetchData = async () => {
       try {
-        const response = await fetch('https://demo.ws.itarget.com.br/event.php');
+        const response = await fetch(url);
         if (!response.ok) {
           throw new Error('Erro ao buscar eventos');
         }
         setLoading(false);
 
         const data = await response.json();
-        setEvents(data.data);
+        let temp_events = data.data;
+        temp_events.forEach( ( item: any) => {
+          if(item.status){
+            item.status = <Button variant="outlined" color="primary">Inscreva-se</Button>;
+          }
+          else{
+            item.status = <Button variant="outlined" color="error">Inscrições Encerradas</Button>;
+          }
+        });
+        setEvents(temp_events);
       } catch (error) {
         console.error(error);
       }
@@ -35,6 +46,7 @@ const Main: FC<MainProps> = () => {
   return (
     <div>
       <Title>Eventos</Title>
+      <Typography variant="h1">Hello, Next.js!</Typography>
       <Card className="mt-6">
         <DataTable data={events}></DataTable>
       </Card>

@@ -8,8 +8,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
+    "@mui/material": "^5.14.20",
     "@tremor/react": "^3.10.0",
     "@types/js-cookie": "^3.0.5",
     "@types/node": "20.8.9",
@@ -29,6 +32,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "server-only": "^0.0.1",
+    "styled-components": "^6.1.1",
     "tailwindcss": "^3.3.5",
     "typescript": "5.2.2"
   },

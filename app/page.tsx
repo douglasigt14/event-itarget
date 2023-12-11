@@ -3,7 +3,7 @@ import { Card, Title, Text } from '@tremor/react';
 import Search from './search';
 import UsersTable from '../src/components/Table/table';
 import Event from '../src/interfaces/Event';
-import Main from '../src/components/Main/Main';
+import Main from '../src/components/Main/main';
 
 
 
