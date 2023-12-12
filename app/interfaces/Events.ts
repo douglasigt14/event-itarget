@@ -1,4 +1,4 @@
-export interface Event{
+export default interface Event{
     id: number;
     name: string;
     start_date: string;
