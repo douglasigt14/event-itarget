@@ -18,15 +18,23 @@ export default function DataTable({ data }: { data: any[] }) {
 
   // Obtém as chaves do primeiro objeto para usar como cabeçalhos dinâmicos
   const headers = Object.keys(data[0]);
+  let labelsHeader = ["#",
+  "Evento",
+  "Inicio",
+  "Fim",
+  "Inscrição"];
+  
+  let headerCells:any[] = [];
+  labelsHeader.forEach((label) => {
+    headerCells.push(<TableHeaderCell key={label}>{label}</TableHeaderCell>);
+  });
 
   return (
     <Table>
       <TableHead>
-        <TableRow>
-          {headers.map((header) => (
-            <TableHeaderCell key={header}>{header}</TableHeaderCell>
-          ))}
-        </TableRow>
+      <TableRow>
+          {headerCells}
+      </TableRow>
       </TableHead>
       <TableBody>
         {data.map((rowData, rowIndex) => (

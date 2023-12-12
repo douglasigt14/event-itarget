@@ -5,7 +5,8 @@ import React, { FC, useState, useEffect } from 'react';
 import DataTable from '../Table/table';
 import Event from '../../interfaces/Event';
 import { Button, Typography } from '@mui/material';
-import {DivCenter} from "./style";
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 
 interface MainProps {}
@@ -13,7 +14,6 @@ interface MainProps {}
 const Main: FC<MainProps> = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [loadding, setLoading] = useState(true);
-
 
   useEffect(() => {
     const url = "http://localhost:8080/api/events";
@@ -28,11 +28,17 @@ const Main: FC<MainProps> = () => {
         const data = await response.json();
         let temp_events = data.data;
         temp_events.forEach( ( item: any) => {
+          let data = new Date(item.start_date); 
+          item.start_date = format(data, 'dd/MM/yyyy', { locale: ptBR });
+
+          data = new Date(item.end_date); 
+          item.end_date =  format(data, 'dd/MM/yyyy', { locale: ptBR });
+
           if(item.status){
             item.status = <Button variant="outlined" color="primary">Inscreva-se</Button>;
           }
           else{
-            item.status = <Button variant="outlined" color="error">Encerradas</Button>;
+            item.status = <Button variant="outlined" color="error">Encerrado</Button>;
           }
         });
         setEvents(temp_events);
@@ -48,7 +54,7 @@ const Main: FC<MainProps> = () => {
     <div>
       <Typography variant="h5">Eventos</Typography>
       <Card className="mt-6">
-        <DataTable data={events}></DataTable>
+        <DataTable   data={events}></DataTable>
       </Card>
     </div>
   );
