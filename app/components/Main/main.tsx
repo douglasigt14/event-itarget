@@ -3,7 +3,7 @@
 import { Title, Card } from '@tremor/react';
 import React, { FC, useState, useEffect } from 'react';
 import DataTable from '../Table/table';
-import Event from '../../interfaces/Event';
+import Event from '../../interfaces/Events';
 import { Button, Typography } from '@mui/material';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
