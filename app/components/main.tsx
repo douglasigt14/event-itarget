@@ -1,13 +1,12 @@
 "use client";
 
-import { Title, Card } from '@tremor/react';
+import { Card } from '@tremor/react';
 import React, { FC, useState, useEffect } from 'react';
-import DataTable from '../Table/table';
-import Event from '../../interfaces/Events';
+import DataTable from './table';
+import Event from '../interfaces/Events';
 import { Button, Typography } from '@mui/material';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-
 
 interface MainProps {}
 
@@ -35,10 +34,16 @@ const Main: FC<MainProps> = () => {
           item.end_date =  format(data, 'dd/MM/yyyy', { locale: ptBR });
 
           if(item.status){
-            item.status = <Button variant="outlined" color="primary">Inscreva-se</Button>;
+            item.status =  <Button
+            variant="outlined"
+            color="primary"
+            href={`/singup`}
+          >
+            Inscreva-se
+          </Button>
           }
           else{
-            item.status = <Button variant="outlined" color="error">Encerrado</Button>;
+            item.status = <Button variant="outlined" color="error" >Encerrado</Button>;
           }
         });
         setEvents(temp_events);
