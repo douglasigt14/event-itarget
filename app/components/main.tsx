@@ -4,7 +4,7 @@ import { Card } from '@tremor/react';
 import React, { FC, useState, useEffect } from 'react';
 import DataTable from './table';
 import Event from '../interfaces/Events';
-import { Button, Typography } from '@mui/material';
+import { Button, Skeleton, Typography } from '@mui/material';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
@@ -35,7 +35,7 @@ const Main: FC<MainProps> = () => {
 
           if(item.status){
             item.status =  <Button
-            variant="outlined"
+            variant="text"
             color="primary"
             href={`/singup`}
           >
@@ -43,7 +43,7 @@ const Main: FC<MainProps> = () => {
           </Button>
           }
           else{
-            item.status = <Button variant="outlined" color="error" >Encerrado</Button>;
+            item.status = <Button variant="text" color="error" >Encerrado</Button>;
           }
         });
         setEvents(temp_events);
@@ -54,14 +54,20 @@ const Main: FC<MainProps> = () => {
 
     fetchData();
   }, []);
-
-  return (
+  
+let result = ( loadding  ? <Skeleton
+  variant="rectangular"
+  width="100%"
+  height={500}
+  /> :
     <div>
       <Typography variant="h5">Eventos</Typography>
       <Card className="mt-6">
         <DataTable   data={events}></DataTable>
       </Card>
-    </div>
+    </div>);
+  return (
+    result  
   );
 };
 
