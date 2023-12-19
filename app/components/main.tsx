@@ -8,7 +8,7 @@ import { Button, Skeleton, Typography } from '@mui/material';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
-interface MainProps {}
+interface MainProps { }
 
 const Main: FC<MainProps> = () => {
   const [events, setEvents] = useState<Event[]>([]);
@@ -26,23 +26,23 @@ const Main: FC<MainProps> = () => {
 
         const data = await response.json();
         let temp_events = data.data;
-        temp_events.forEach( ( item: any) => {
-          let data = new Date(item.start_date); 
+        temp_events.forEach((item: any) => {
+          let data = new Date(item.start_date);
           item.start_date = format(data, 'dd/MM/yyyy', { locale: ptBR });
 
-          data = new Date(item.end_date); 
-          item.end_date =  format(data, 'dd/MM/yyyy', { locale: ptBR });
+          data = new Date(item.end_date);
+          item.end_date = format(data, 'dd/MM/yyyy', { locale: ptBR });
 
-          if(item.status){
-            item.status =  <Button
-            variant="text"
-            color="primary"
-            href={`/singup`}
-          >
-            Inscreva-se
-          </Button>
+          if (item.status) {
+            item.status = <Button
+              variant="text"
+              color="primary"
+              href={`/singup`}
+            >
+              Inscreva-se
+            </Button>
           }
-          else{
+          else {
             item.status = <Button variant="text" color="error" >Encerrado</Button>;
           }
         });
@@ -53,20 +53,20 @@ const Main: FC<MainProps> = () => {
 
     fetchData();
   }, []);
-  
-let result = ( loadding  ? <Skeleton
-  variant="rectangular"
-  width="100%"
-  height={500}
+
+  let result = (loadding ? <Skeleton
+    variant="rectangular"
+    width="100%"
+    height={500}
   /> :
     <div>
       <Typography variant="h5">Eventos</Typography>
       <Card className="mt-6">
-        <DataTable   data={events}></DataTable>
+        <DataTable data={events}></DataTable>
       </Card>
     </div>);
   return (
-    result  
+    result
   );
 };
 
