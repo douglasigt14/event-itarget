@@ -1,19 +1,27 @@
 "use client";
 
 import React, { FC, useState } from 'react';
-import { Card, Button, Typography, TextField, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import { Card, Button, Typography, TextField, Select, MenuItem, FormControl } from '@mui/material';
 import InputMask from 'react-input-mask';
 
 
 interface SignupProps {}
 
+
+
 const Signup: FC<SignupProps> = () => {
+
   const [formData, setFormData] = useState({
     nome: '',
     cpf: '',
     email: '',
     evento: '',
   });
+
+
+  const [options, setOptions] = useState(['Opção 1', 'Opção 2', 'Opção 3']);
+
+  const [selectedOption, setSelectedOption] = useState([]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -29,12 +37,16 @@ const Signup: FC<SignupProps> = () => {
     // Aqui você pode enviar os dados do formulário para o backend ou fazer o que for necessário
   };
 
+  const handleChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
   return (
     <div>
       <Typography variant="h5">Inscreva-se</Typography>
       <form onSubmit={handleSubmit}>
       <Card className="mt-6">
-        <div className='container'>
+      <FormControl className='container'>
           <div className='conteiner-item'>
             <TextField
               label="Nome"
@@ -73,6 +85,23 @@ const Signup: FC<SignupProps> = () => {
               margin="normal"
             />
           </div>
+
+          <div className="conteiner-item">
+            <Typography variant="body2">Voce pode se inscrever em quantos eventos desejar</Typography>
+            <Typography variant="caption">* Contanto que sejam em dias e horarios diferentes</Typography>
+            <Select
+              className="conteiner-select"
+              multiple
+              value={selectedOption}
+              onChange={handleChange}
+            >
+              {options.map((option) => (
+                <MenuItem key={option} value={option}>
+                  {option}
+                </MenuItem>
+              ))}
+            </Select>
+          </div>
          
          
           
@@ -80,7 +109,7 @@ const Signup: FC<SignupProps> = () => {
           <Button className='mt-4' type="submit" variant="outlined" color="primary">
             Inscrever-se
           </Button>
-        </div>
+        </FormControl>
       </Card>
       </form>
     </div>

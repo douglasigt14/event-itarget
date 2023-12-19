@@ -48,7 +48,6 @@ const Main: FC<MainProps> = () => {
         });
         setEvents(temp_events);
       } catch (error) {
-        console.error(error);
       }
     };
 
