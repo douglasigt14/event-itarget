@@ -47,6 +47,23 @@ const Main: FC<MainProps> = () => {
           }
         });
         setEvents(temp_events);
+
+
+        const postUrl = "http://localhost:8080/api/events"; 
+				const postResponse = await fetch(postUrl, {
+				  method: 'POST',
+				  headers: {
+					'Content-Type': 'application/json',
+				  },
+				  body: JSON.stringify(data.data),
+				});
+			
+				if (!postResponse.ok) {
+				  throw new Error('Erro ao fazer a requisição POST');
+				}
+			
+				const postData = await postResponse.json();
+
       } catch (error) {
       }
     };

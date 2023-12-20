@@ -63,6 +63,7 @@ const Signup: FC<SignupProps> = () => {
 				let temp_options = temp_events.filter(item => item.status === true).map(item => item.name);
 
 				setEvents(temp_events);
+				
 			} catch (error) {
 			}
 		};
@@ -85,7 +86,7 @@ const Signup: FC<SignupProps> = () => {
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		try {
-			const response = await fetch('http://localhost:8080/api/events', {
+			const response = await fetch('http://localhost:8080/api/singup', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
