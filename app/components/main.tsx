@@ -2,7 +2,7 @@
 
 import { Card } from '@tremor/react';
 import React, { FC, useState, useEffect } from 'react';
-import DataTable from './table';
+import TableBasic from './table';
 import Event from '../interfaces/Events';
 import { Button, Skeleton, Typography } from '@mui/material';
 import { format } from 'date-fns';
@@ -12,6 +12,8 @@ import { ptBR } from 'date-fns/locale';
 const Main: FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [loadding, setLoading] = useState(true);
+
+  const labelsHeader = ["#", "Evento", "Inicio", "Fim", "Inscrição"];
 
   useEffect(() => {
     const url = "http://localhost:8080/api/events";
@@ -62,7 +64,7 @@ const Main: FC = () => {
     <div>
       <Typography variant="h5">Eventos</Typography>
       <Card className="mt-6">
-        <DataTable data={events}></DataTable>
+        <TableBasic  labelsHeader={labelsHeader} data={events}></TableBasic>
       </Card>
     </div>);
   return (
