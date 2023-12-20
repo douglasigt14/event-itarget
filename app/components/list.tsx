@@ -10,9 +10,9 @@ import { ptBR } from 'date-fns/locale';
 
 const ListRegistered: FC = () => {
   const [list, setList] = useState([]);
-  const [loadding, setLoading] = useState(false);
+  const [loadding, setLoading] = useState(true);
   const [events, setEvents] = useState<Event[]>([]);
-  const [selectedEvent, setSelectedEvent] = useState("3");
+  const [selectedEvent, setSelectedEvent] = useState("");
 
 
   
