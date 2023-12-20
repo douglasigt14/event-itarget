@@ -18,7 +18,7 @@ const Signup: FC<SignupProps> = () => {
 
 
 	const [formData, setFormData] = useState({
-		nome: '',
+		name: '',
 		cpf: '',
 		email: '',
 		events: []
@@ -53,7 +53,7 @@ const Signup: FC<SignupProps> = () => {
 				setLoading(false);
 
 				const data = await response.json();
-				let temp_events = data.data.filter(item => item.status === true).map(item => {
+				let temp_events = data.filter(item => item.status === true).map(item => {
 					return {
 						...item,
 						start_date: format(new Date(item.start_date), 'dd/MM/yyyy', { locale: ptBR }),
@@ -125,9 +125,9 @@ const Signup: FC<SignupProps> = () => {
 						<div className='conteiner-item'>
 							<TextField
 								label="Nome"
-								name="nome"
+								name="name"
 								required
-								value={formData.nome}
+								value={formData.name}
 								onChange={handleChange}
 								fullWidth
 								margin="normal"
