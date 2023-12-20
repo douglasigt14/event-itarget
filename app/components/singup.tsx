@@ -6,13 +6,16 @@ import InputMask from 'react-input-mask';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import Event from '../interfaces/Events';
+import Swal from 'sweetalert2';
+import { useRouter } from 'next/navigation'
 
 
-interface SignupProps { }
 
 
 
 const Signup: FC<SignupProps> = () => {
+	const router = useRouter();
+
 
 	const [formData, setFormData] = useState({
 		nome: '',
@@ -20,6 +23,20 @@ const Signup: FC<SignupProps> = () => {
 		email: '',
 		events: []
 	});
+
+	const alertSucess = () => {
+		Swal.fire({
+		  title: 'Inscrição feita com sucesso!',
+		  icon: 'success'
+		});
+	  };
+
+	  const alertError = () => {
+		Swal.fire({
+		  title: 'Não foi possivel realizar a inscrição',
+		  icon: 'error'
+		});
+	  };
 
 
 	const [events, setEvents] = useState<Event[]>([]);
@@ -77,15 +94,18 @@ const Signup: FC<SignupProps> = () => {
 			});
 
 			if (!response.ok) {
+				alertError();
 				throw new Error('Erro ao enviar inscrição');
 			}
 
-			console.log('Inscrição enviada com sucesso!');
+			alertSucess();
 			// Adicione aqui o que deseja fazer após o sucesso da inscrição
 		} catch (error) {
-			console.error('Erro ao enviar inscrição:', error);
+			alertError();
 			// Adicione aqui o que deseja fazer em caso de erro
-		}
+		}finally {
+			router.push('/');
+		  }
 	};
 
 
@@ -105,6 +125,7 @@ const Signup: FC<SignupProps> = () => {
 							<TextField
 								label="Nome"
 								name="nome"
+								required
 								value={formData.nome}
 								onChange={handleChange}
 								fullWidth
@@ -121,6 +142,7 @@ const Signup: FC<SignupProps> = () => {
 							>
 								{() => (
 									<TextField
+										required
 										label="CPF"
 										name="cpf"
 										fullWidth
@@ -132,6 +154,7 @@ const Signup: FC<SignupProps> = () => {
 						<div className='conteiner-item'>
 							<TextField
 								label="Email"
+								required
 								name="email"
 								value={formData.email}
 								onChange={handleChange}
@@ -147,6 +170,7 @@ const Signup: FC<SignupProps> = () => {
 								className="conteiner-select"
 								multiple
 								name="events"
+								required
 								value={formData.events}
 								onChange={handleChange}
 							>
