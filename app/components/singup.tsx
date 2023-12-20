@@ -38,6 +38,16 @@ const Signup: FC<SignupProps> = () => {
 		});
 	  };
 
+	  const alertWarning = () => {
+		Swal.fire({
+		  title: 'Os eventos selecionados estão conflitando',
+		  icon: 'warning'
+		});
+	  };
+
+
+	  
+
 
 	const [events, setEvents] = useState<Event[]>([]);
 	const [loadding, setLoading] = useState(true);
@@ -56,8 +66,8 @@ const Signup: FC<SignupProps> = () => {
 				let temp_events = data.filter(item => item.status === true).map(item => {
 					return {
 						...item,
-						start_date: format(new Date(item.start_date), 'dd/MM/yyyy', { locale: ptBR }),
-						end_date: format(new Date(item.end_date), 'dd/MM/yyyy', { locale: ptBR }),
+						start_date_br: format(new Date(item.start_date), 'dd/MM/yyyy', { locale: ptBR }),
+						end_date_br: format(new Date(item.end_date), 'dd/MM/yyyy', { locale: ptBR }),
 					};
 				});;
 				let temp_options = temp_events.filter(item => item.status === true).map(item => item.name);
@@ -83,8 +93,40 @@ const Signup: FC<SignupProps> = () => {
 		}));
 	};
 
+	const hasDateConflict = (selectedEvents: Event[]): boolean => {
+		const selectedDates = selectedEvents.map(event => ({
+		  start_date: new Date(event.start_date),
+		  end_date: new Date(event.end_date),
+		}));
+	  
+		for (let i = 0; i < selectedDates.length - 1; i++) {
+		  for (let j = i + 1; j < selectedDates.length; j++) {
+			if (
+			  (selectedDates[i].start_date <= selectedDates[j].end_date &&
+				selectedDates[i].end_date >= selectedDates[j].start_date) ||
+			  (selectedDates[j].start_date <= selectedDates[i].end_date &&
+				selectedDates[j].end_date >= selectedDates[i].start_date)
+			) {
+			  // Conflito de datas encontrado
+			  return true;
+			}
+		  }
+		}
+
+		return false;
+	  };
+
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+		const selectedEvents = events.filter(event => formData.events.includes(event.id));
+		console.log(selectedEvents);
+
+		if (hasDateConflict(selectedEvents)) {
+			// Exibir mensagem de erro
+			alertWarning();
+			return;
+		}
+
 		try {
 			const response = await fetch('http://localhost:8080/api/singup', {
 				method: 'POST',
@@ -176,7 +218,7 @@ const Signup: FC<SignupProps> = () => {
 								{events.map((option) => (
 									<MenuItem key={option.id} value={option.id}>
 										<Typography variant="body2">
-											{option.name} | <Typography variant="caption">{option.start_date} à {option.end_date}</Typography>
+											{option.name} | <Typography variant="caption">{option.start_date_br} à {option.end_date_br}</Typography>
 										</Typography>
 									</MenuItem>
 								))}

@@ -56,6 +56,30 @@ const ListRegistered: FC = () => {
 	}, []);
 
 
+  useEffect(() => {
+    setLoading(true);
+    const fetchDataForSelectedEvent = async () => {
+      if (selectedEvent) {
+        const url = `http://localhost:8080/api/list/${selectedEvent}`; 
+        try {
+          const response = await fetch(url);
+          setLoading(false);
+          if (!response.ok) {
+            throw new Error('Erro ao buscar inscrições para o evento');
+          }
+          const data = await response.json();
+          setList(data); 
+        } catch (error) {
+          console.error('Erro ao buscar inscrições para o evento', error);
+        }
+      }
+    };
+
+    fetchDataForSelectedEvent();
+  }, [selectedEvent]);
+
+
+
   let result = (loadding ? <Skeleton
     variant="rectangular"
     width="100%"

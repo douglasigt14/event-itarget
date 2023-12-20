@@ -23,7 +23,7 @@ export default function TableBasic({ data,  labelsHeader}) {
 
   // Estado para controlar a página atual e a quantidade de itens por página
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5); // você pode ajustar isso conforme necessário
+  const [rowsPerPage, setRowsPerPage] = useState(10); // você pode ajustar isso conforme necessário
 
   // Função para lidar com a mudança de página
   const handleChangePage = (event: unknown, newPage: number) => {
