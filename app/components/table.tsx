@@ -11,7 +11,7 @@ import {
 export default function TableBasic({ data,  labelsHeader}) {
   // Verifica se há dados para exibição
   if (data.length === 0) {
-    return <div>Nenhum Evento Cadastrado</div>;
+    return <div></div>;
   }
 
   // Obtém as chaves do primeiro objeto para usar como cabeçalhos dinâmicos

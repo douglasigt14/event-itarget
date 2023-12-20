@@ -5,11 +5,10 @@ import { usePathname } from 'next/navigation';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { signIn, signOut } from 'next-auth/react';
-import Image from 'next/image';
 
 const navigation = [
   { name: 'Eventos', href: '/' },
-  { name: 'Listar Inscritos', href: '/list' }
+  { name: 'Lista de Inscritos', href: '/list' }
 ];
 
 function classNames(...classes: string[]) {

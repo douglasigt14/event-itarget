@@ -3,27 +3,57 @@
 import { Card } from '@tremor/react';
 import React, { FC, useState, useEffect } from 'react';
 import Event from '../interfaces/Events';
-import { Skeleton, Typography } from '@mui/material';
+import { MenuItem, Skeleton, Typography, Select } from '@mui/material';
 import TableBasic from './table';
-
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 const ListRegistered: FC = () => {
-  const [events, setEvents] = useState<Event[]>([]);
+  const [list, setList] = useState([]);
   const [loadding, setLoading] = useState(false);
+  const [events, setEvents] = useState<Event[]>([]);
+  const [selectedEvent, setSelectedEvent] = useState("3");
+
+
   
-  const data = [
-    { id: 1, title: 'Item 1' },
-    { id: 2, title: 'Item 2' },
-    { id: 3, title: 'Item 3' },
-    { id: 4, title: 'Item 4' },
-    { id: 5, title: 'Item 5' },
-    { id: 6, title: 'Item 6' },
-    { id: 7, title: 'Item 7' },
-    { id: 8, title: 'Item 8' },
-    { id: 9, title: 'Item 9' },
-    { id: 10, title: 'Item 10' },
-    // Adicione mais itens conforme necessário
-  ];
+
+  const labelsHeader = ["Nome", "CPF", "E-mail"];
+
+
+  const handleChange = (event) => {
+    setSelectedEvent(event.target.value);
+  };
+
+
+  
+  useEffect(() => {
+		const url = "http://localhost:8080/api/events";
+		const fetchData = async () => {
+			try {
+				const response = await fetch(url);
+				if (!response.ok) {
+					throw new Error('Erro ao buscar eventos');
+				}
+				setLoading(false);
+
+				const data = await response.json();
+				let temp_events = data.filter(item => item.status === true).map(item => {
+					return {
+						...item,
+						start_date: format(new Date(item.start_date), 'dd/MM/yyyy', { locale: ptBR }),
+						end_date: format(new Date(item.end_date), 'dd/MM/yyyy', { locale: ptBR }),
+					};
+				});;
+				let temp_options = temp_events.filter(item => item.status === true).map(item => item.name);
+
+				setEvents(temp_events);
+				
+			} catch (error) {
+			}
+		};
+
+		fetchData();
+	}, []);
 
 
   let result = (loadding ? <Skeleton
@@ -34,8 +64,26 @@ const ListRegistered: FC = () => {
     <div>
       <Typography variant="h5">Lista de Inscritos</Typography>
       <Card className="mt-6">
-
+              <div className="conteiner-item">
+							<Select
+								className="conteiner-select"
+								name="events"
+								required
+								value={selectedEvent}
+								onChange={handleChange}
+							>
+								{events.map((option) => (
+									<MenuItem key={option.id} value={option.id}>
+										<Typography variant="body2">
+											{option.name} 
+										</Typography>
+									</MenuItem>
+								))}
+							</Select>
+              </div>
+          <TableBasic  labelsHeader={labelsHeader} data={list}></TableBasic>
       </Card>
+      
     </div>);
   return (
     result

@@ -100,10 +100,8 @@ const Signup: FC<SignupProps> = () => {
 			}
 
 			alertSucess();
-			// Adicione aqui o que deseja fazer após o sucesso da inscrição
 		} catch (error) {
 			alertError();
-			// Adicione aqui o que deseja fazer em caso de erro
 		}finally {
 			router.push('/');
 		  }
