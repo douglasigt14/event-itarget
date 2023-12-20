@@ -8,9 +8,8 @@ import { Button, Skeleton, Typography } from '@mui/material';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
-interface MainProps { }
 
-const Main: FC<MainProps> = () => {
+const Main: FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [loadding, setLoading] = useState(true);
 
