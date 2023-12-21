@@ -81,7 +81,7 @@ const Signup: FC = () => {
 		fetchData();
 	}, []);
 
-	const handleChange = (e: ChangeEvent) => {
+	const handleChange = (e) => {
 		const { name, value } = e.target;
 
 		// Se o campo for o campo 'events', certifique-se de que o valor é um array
