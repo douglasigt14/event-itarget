@@ -11,6 +11,9 @@ import {
 } from '@mui/material';
 
 export default function TableBasic({ data,  labelsHeader}) {
+  // Estado para controlar a página atual e a quantidade de itens por página
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10); // você pode ajustar isso conforme necessário
   // Verifica se há dados para exibição
   if (data.length === 0) {
     return <div></div>;
@@ -23,9 +26,7 @@ export default function TableBasic({ data,  labelsHeader}) {
     headerCells.push(<TableCell key={label}>{label}</TableCell>);
   });
 
-  // Estado para controlar a página atual e a quantidade de itens por página
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10); // você pode ajustar isso conforme necessário
+  
 
   // Função para lidar com a mudança de página
   const handleChangePage = (event: unknown, newPage: number) => {
