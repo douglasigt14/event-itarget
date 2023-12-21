@@ -13,7 +13,7 @@ import { useRouter } from 'next/navigation'
 
 
 
-const Signup: FC<SignupProps> = () => {
+const Signup: FC = () => {
 	const router = useRouter();
 
 
