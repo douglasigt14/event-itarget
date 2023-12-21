@@ -4,4 +4,6 @@ export default interface Event{
     start_date: string;
     end_date: string;
     status: boolean;
+    start_date_br?: string
+    end_date_br?: string
 }
